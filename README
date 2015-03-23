@@ -1,0 +1,12 @@
+NILE PROJECT README
+
+To compile, type "make". It will put all .class files in the bin folder.
+
+To run, use four terminal windows and start programs in this order:
+
+	1. java Catalog
+	2. java Order
+	3. java FrontEndServer
+	4. java Client
+
+Type in requests to the Client window, following the format specified.
