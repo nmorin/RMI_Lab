@@ -85,8 +85,8 @@ public class Client {
                 server.buy(TEST_PRODUCT_NUMBER);
                 endTimeBuy = System.nanoTime();
 
-                lookTimes[i] = (endTimeLook - startTimeLook) / (long)1000000.0; //divide by 1000000 to get milliseconds
-                buyTimes[i] = (endTimeBuy - startTimeBuy) / (long)1000000.0; //divide by 1000000 to get milliseconds
+                lookTimes[i] = (endTimeLook - startTimeLook);// / (long)1000000.0; //divide by 1000000 to get milliseconds
+                buyTimes[i] = (endTimeBuy - startTimeBuy);// / (long)1000000.0; //divide by 1000000 to get milliseconds
             } catch (Exception e) {
                 System.err.println("Exception in query");
                 e.printStackTrace();
