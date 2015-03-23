@@ -12,7 +12,9 @@ that access the other servers. This class also parses and manages
 input from the user from the command line. */
 public class Client {
 
-    private static final String QUERY_TYPE = "INTENSIVE"; // or "USER"
+    // private static final String QUERY_TYPE = "INTENSIVE";
+    // private static final String QUERY_TYPE = "USER";
+    private static final String QUERY_TYPE = "CONCURRENT";
     private static FrontEndServerInterface server;
     private static final int TEST_PRODUCT_NUMBER = 57471;
     private static long[] buyTimes;
@@ -70,7 +72,7 @@ public class Client {
     /* Used for testing, this method will perform the specified number of queries
     sequentially or simultaneously. */
     private static void intensiveQuery(int numQueries) {
-        long startTimeLook, startTimeBuy, endTimeLook, endTimeBuy, durationLook, durationBuy;
+        long startTimeLook, startTimeBuy, endTimeLook, endTimeBuy;
         lookTimes = new long[numQueries];
         buyTimes = new long[numQueries];
         
@@ -91,12 +93,19 @@ public class Client {
     }
 
     private static void concurrentQueries(int numQueries) {
+        lookTimes = new long[numQueries];
+        buyTimes = new long[numQueries];
+
         for (int i = 0; i < numQueries; i++) {
-            ConcurrentQuery q = new ConcurrentQuery("buy");
-            ConcurrentQuery q2 = new ConcurrentQuery("lookup");
-            q.start();
-            q2.start();
+            ConcurrentQuery qBuy = new ConcurrentQuery("buy");
+            ConcurrentQuery qLook = new ConcurrentQuery("lookup");
+            qBuy.start();
+            qLook.start();
+            buyTimes[i] = qBuy.getTime();
+            lookTimes[i] = qLook.getTime();
         }
+
+        printAvgTimes(numQueries);
     }
 
     private static void userInputQuery() {
@@ -190,8 +199,10 @@ public class Client {
 
         if (QUERY_TYPE.equals("USER")) {
             userInputQuery();
-        } else {
+        } else if (QUERY_TYPE.equals("INTENSIVE")) {
             intensiveQuery(500);
+        } else {
+            concurrentQueries(500);
         }
         
     } 
@@ -200,6 +211,7 @@ public class Client {
     private static class ConcurrentQuery extends Thread {
         private Thread t;
         private String requestType;
+        private long time;
         private static final int TEST_PRODUCT_NUMBER = 57471;
        
         ConcurrentQuery(String requestType_) {
@@ -207,29 +219,34 @@ public class Client {
         }
 
         public void run() {
-            long startTime = (long)0.0, endTime = (long)0.0, duration = (long)0.0;
+            long startTime = (long)0.0, endTime = (long)0.0;
             try {
-                startTime = System.nanoTime();
                 if (requestType.equals("buy")) {
+                    startTime = System.nanoTime();
                     performBuy(TEST_PRODUCT_NUMBER);
+                    endTime = System.nanoTime();
                 } else {
+                    startTime = System.nanoTime();
                     performLookUp(TEST_PRODUCT_NUMBER);
+                    endTime = System.nanoTime();
                 }
-                endTime = System.nanoTime();
             } catch (Exception e) {
                 System.out.println("Thread interrupted.");
             }
-            duration = (endTime - startTime) / (long)1000000.0;  //divide by 1000000 to get milliseconds.
-            System.out.println(duration);
+            time = endTime - startTime;
         }
        
-       public void start()
-       {
-          if (t == null) {
-             t = new Thread (this, requestType);
-             t.start(); 
-         }
-       }
+        public void start()
+        {
+            if (t == null) {
+                t = new Thread (this, requestType);
+                t.start(); 
+            }
+        }
+
+        public long getTime() {
+            return time;
+        }
    }
 
 
