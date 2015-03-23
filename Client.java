@@ -12,26 +12,11 @@ that access the other servers. This class also parses and manages
 input from the user from the command line. */
 public class Client {
 
+    private static final String QUERY_TYPE = "INTENSIVE"; // or "USER"
     private static FrontEndServerInterface server;
     private static final int TEST_PRODUCT_NUMBER = 57471;
     private static long[] buyTimes;
     private static long[] lookTimes;
-
-    private static void printAvgTimes(int numQueries) {
-        long buySum = (long)0.0;
-        long lookSum = (long)0.0;
-
-        for (int i = 0; i < numQueries; i++) {
-            buySum += buyTimes[i];
-            lookSum += lookTimes[i];
-        }
-
-        long buyAvg = buySum / (long)numQueries;
-        long lookAvg = lookSum / (long)numQueries;
-
-        System.out.println("BUY AVG TIME: "+buyAvg);
-        System.out.println("LOOKUP AVG TIME: "+lookAvg);
-    }
 
     private static String performLookUp(int number) {
         String answer = "";
@@ -66,6 +51,22 @@ public class Client {
         return answer;
     }
 
+    private static void printAvgTimes(int numQueries) {
+        long buySum = (long)0.0;
+        long lookSum = (long)0.0;
+
+        for (int i = 0; i < numQueries; i++) {
+            buySum += buyTimes[i];
+            lookSum += lookTimes[i];
+        }
+
+        long buyAvg = buySum / (long)numQueries;
+        long lookAvg = lookSum / (long)numQueries;
+
+        System.out.println("BUY AVG TIME: "+buyAvg);
+        System.out.println("LOOKUP AVG TIME: "+lookAvg);
+    }
+
     /* Used for testing, this method will perform the specified number of queries
     sequentially or simultaneously. */
     private static void intensiveQuery(int numQueries) {
@@ -86,7 +87,6 @@ public class Client {
             lookTimes[i] = (endTimeLook - startTimeLook) / (long)1000000.0; //divide by 1000000 to get milliseconds
             buyTimes[i] = (endTimeBuy - startTimeBuy) / (long)1000000.0; //divide by 1000000 to get milliseconds
         }
-
         printAvgTimes(numQueries);
     }
 
@@ -188,8 +188,11 @@ public class Client {
             e.printStackTrace();
         }
 
-        userInputQuery();
-
+        if (QUERY_TYPE.equals("USER")) {
+            userInputQuery();
+        } else {
+            intensiveQuery(500);
+        }
         
     } 
 
