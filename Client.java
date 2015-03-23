@@ -12,8 +12,11 @@ that access the other servers. This class also parses and manages
 input from the user from the command line. */
 public class Client {
 
+    private static final String QUERY_TYPE = "INTENSIVE"; // or "USER"
     private static FrontEndServerInterface server;
     private static final int TEST_PRODUCT_NUMBER = 57471;
+    private static long[] buyTimes;
+    private static long[] lookTimes;
 
     private static String performLookUp(int number) {
         String answer = "";
@@ -48,30 +51,49 @@ public class Client {
         return answer;
     }
 
+    private static void printAvgTimes(int numQueries) {
+        long buySum = (long)0.0;
+        long lookSum = (long)0.0;
+
+        for (int i = 0; i < numQueries; i++) {
+            buySum += buyTimes[i];
+            lookSum += lookTimes[i];
+        }
+
+        long buyAvg = buySum / (long)numQueries;
+        long lookAvg = lookSum / (long)numQueries;
+
+        System.out.println("BUY AVG TIME: "+buyAvg);
+        System.out.println("LOOKUP AVG TIME: "+lookAvg);
+    }
+
     /* Used for testing, this method will perform the specified number of queries
     sequentially or simultaneously. */
     private static void intensiveQuery(int numQueries) {
-        long startTime, endTime, duration;
+        long startTimeLook, startTimeBuy, endTimeLook, endTimeBuy, durationLook, durationBuy;
+        lookTimes = new long[numQueries];
+        buyTimes = new long[numQueries];
         
         System.out.println("Timing " + numQueries + " queries, beginning with lookUps");
-        for (int i = 0; i < 2*numQueries; i++) {
-            startTime = System.nanoTime();
+        for (int i = 0; i < numQueries; i++) {
             try {
-                if (i < numQueries) {
-                    server.lookUp(TEST_PRODUCT_NUMBER);
-                } else {
-                    if (i == numQueries) System.out.println("\n Buy requests");
-                    server.buy(TEST_PRODUCT_NUMBER);
-                }
+                startTimeLook = System.nanoTime();
+                server.lookUp(TEST_PRODUCT_NUMBER);
+                endTimeLook = System.nanoTime();
+
+                startTimeBuy = System.nanoTime();
+                server.buy(TEST_PRODUCT_NUMBER);
+                endTimeBuy = System.nanoTime();
+
+                lookTimes[i] = (endTimeLook - startTimeLook) / (long)1000000.0; //divide by 1000000 to get milliseconds
+                buyTimes[i] = (endTimeBuy - startTimeBuy) / (long)1000000.0; //divide by 1000000 to get milliseconds
             } catch (Exception e) {
                 System.err.println("Exception in query");
                 e.printStackTrace();
             }
-            endTime = System.nanoTime();
-            duration = (endTime - startTime) / (long)1000000.0;  //divide by 1000000 to get milliseconds.
-            System.out.println(duration);
         }
 
+        printAvgTimes(numQueries);
     }
 
     private static void concurrentQueries(int numQueries) {
@@ -169,8 +191,11 @@ public class Client {
             e.printStackTrace();
         }
 
-        userInputQuery();
-
+        if (QUERY_TYPE.equals("USER")) {
+            userInputQuery();
+        } else {
+            intensiveQuery(500);
+        }
         
     } 
 }
