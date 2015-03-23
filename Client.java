@@ -14,6 +14,24 @@ public class Client {
 
     private static FrontEndServerInterface server;
     private static final int TEST_PRODUCT_NUMBER = 57471;
+    private static long[] buyTimes;
+    private static long[] lookTimes;
+
+    private static void printAvgTimes(int numQueries) {
+        long buySum = (long)0.0;
+        long lookSum = (long)0.0;
+
+        for (int i = 0; i < numQueries; i++) {
+            buySum += buyTimes[i];
+            lookSum += lookTimes[i];
+        }
+
+        long buyAvg = buySum / (long)numQueries;
+        long lookAvg = lookSum / (long)numQueries;
+
+        System.out.println("BUY AVG TIME: "+buyAvg);
+        System.out.println("LOOKUP AVG TIME: "+lookAvg);
+    }
 
     private static String performLookUp(int number) {
         String answer = "";
@@ -51,33 +69,34 @@ public class Client {
     /* Used for testing, this method will perform the specified number of queries
     sequentially or simultaneously. */
     private static void intensiveQuery(int numQueries) {
-        long startTime, endTime, duration;
+        long startTimeLook, startTimeBuy, endTimeLook, endTimeBuy, durationLook, durationBuy;
+        lookTimes = new long[numQueries];
+        buyTimes = new long[numQueries];
         
         System.out.println("Timing " + numQueries + " queries, beginning with lookUps");
-        for (int i = 0; i < 2*numQueries; i++) {
-            startTime = System.nanoTime();
-            try {
-                if (i < numQueries) {
-                    server.lookUp(TEST_PRODUCT_NUMBER);
-                } else {
-                    if (i == numQueries) System.out.println("\n Buy requests");
-                    server.buy(TEST_PRODUCT_NUMBER);
-                }
-            } catch (Exception e) {
-                System.err.println("Exception in query");
-                e.printStackTrace();
-            }
-            endTime = System.nanoTime();
-            duration = (endTime - startTime) / (long)1000000.0;  //divide by 1000000 to get milliseconds.
-            System.out.println(duration);
+        for (int i = 0; i < numQueries; i++) {
+            startTimeLook = System.nanoTime();
+            performLookUp(TEST_PRODUCT_NUMBER);
+            endTimeLook = System.nanoTime();
+
+            startTimeBuy = System.nanoTime();
+            performBuy(TEST_PRODUCT_NUMBER);
+            endTimeBuy = System.nanoTime();
+
+            lookTimes[i] = (endTimeLook - startTimeLook) / (long)1000000.0; //divide by 1000000 to get milliseconds
+            buyTimes[i] = (endTimeBuy - startTimeBuy) / (long)1000000.0; //divide by 1000000 to get milliseconds
         }
 
+        printAvgTimes(numQueries);
     }
 
     private static void concurrentQueries(int numQueries) {
-
-
-
+        for (int i = 0; i < numQueries; i++) {
+            ConcurrentQuery q = new ConcurrentQuery("buy");
+            ConcurrentQuery q2 = new ConcurrentQuery("lookup");
+            q.start();
+            q2.start();
+        }
     }
 
     private static void userInputQuery() {
@@ -173,37 +192,45 @@ public class Client {
 
         
     } 
-}
 
 
-class ConcurrentQuery extends Thread {
-   private Thread t;
-   private String threadName;
-   
-   ConcurrentQuery(String name){
-       threadName = name;
-       System.out.println("Creating " +  threadName );
-   }
+    private static class ConcurrentQuery extends Thread {
+        private Thread t;
+        private String requestType;
+        private static final int TEST_PRODUCT_NUMBER = 57471;
+       
+        ConcurrentQuery(String requestType_) {
+           requestType = requestType_;
+        }
 
-   public void run() {
-      try {
-         for(int i = 4; i > 0; i--) {
-            System.out.println("Thread: " + threadName + ", " + i);
-            // Let the thread sleep for a while.
-            Thread.sleep(50);
+        public void run() {
+            long startTime = (long)0.0, endTime = (long)0.0, duration = (long)0.0;
+            try {
+                startTime = System.nanoTime();
+                if (requestType.equals("buy")) {
+                    performBuy(TEST_PRODUCT_NUMBER);
+                } else {
+                    performLookUp(TEST_PRODUCT_NUMBER);
+                }
+                endTime = System.nanoTime();
+            } catch (Exception e) {
+                System.out.println("Thread interrupted.");
+            }
+            duration = (endTime - startTime) / (long)1000000.0;  //divide by 1000000 to get milliseconds.
+            System.out.println(duration);
+        }
+       
+       public void start()
+       {
+          if (t == null) {
+             t = new Thread (this, requestType);
+             t.start(); 
          }
-     } catch (InterruptedException e) {
-         System.out.println("Thread " +  threadName + " interrupted.");
-     }
-     System.out.println("Thread " +  threadName + " exiting.");
-   }
-   
-   public void start()
-   {
-      if (t == null) {
-         t = new Thread (this, threadName);
-         t.start(); 
-     }
+       }
    }
 
+
+
+
 }
+
