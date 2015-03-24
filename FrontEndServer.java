@@ -57,14 +57,16 @@ public class FrontEndServer implements FrontEndServerInterface {
         // if (System.getSecurityManager() == null) {
         //     System.getSecurityManager(new SecurityManager());
         // }
-        String host = (argv
+        String host1 = (argv
             .length < 1) ? "localhost" : argv[0];
+        String host2 = (argv
+            .length < 1) ? "localhost" : argv[1];
         try {
-            Registry catalogRegistry = LocateRegistry.getRegistry(host, 8888);
+            Registry catalogRegistry = LocateRegistry.getRegistry(host1, 8888);
             catalogStub = (CatalogInterface) catalogRegistry.lookup("CatalogInterface");
             System.out.println("Found catalog!");
 
-            Registry orderRegistry = LocateRegistry.getRegistry(host, 8887);
+            Registry orderRegistry = LocateRegistry.getRegistry(host2, 8887);
             orderStub = (OrderInterface) orderRegistry.lookup("OrderInterface");
             System.out.println("Found order!");
 
