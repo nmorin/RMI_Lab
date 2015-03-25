@@ -1,3 +1,20 @@
+/* 
+ * Nicole Morin and Megan Maher
+ * Bowdoin Class of 2016
+ * Distributed Systems: RMI Lab
+ * 
+ * Created: February 17, 2015
+ * Last Modified: March 6, 2015
+ *
+ * Catalog class keeps track of the books for sale,
+ * and periodically increases the quantity of stock for each
+ * item every ten seconds by one. It handles queries based
+ * on topic and item number, returning select details of the 
+ * books searched for. It supports two types of requests - queries
+ * for information and updates to the stock or price of specified
+ * items. 
+ */
+
 import java.rmi.*;
 import java.util.ArrayList;
 import java.rmi.registry.Registry;
@@ -6,13 +23,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/* Catalog class keeps track of the books for sale,
-and periodically increases the quantity of stock for each
-item every ten seconds by one. It handles queries based
-on topic and item number, returning select details of the 
-books searched for. It supports two types of requests - queries
-for information and updates to the stock or price of specified
-items. */
 public class Catalog extends TimerTask implements CatalogInterface {
 
     private static ArrayList<Book> books;

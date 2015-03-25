@@ -1,6 +1,14 @@
-/* We created a book class to ease managing the objects
-and make editing the stock easier. The book class holds
-attributes such as price, quantity, etc. */
+/* 
+ * Nicole Morin and Megan Maher
+ * Bowdoin Class of 2016
+ * Distributed Systems: RMI Lab
+ * 
+ * Created: February 17, 2015
+ * Last Modified: March 6, 2015
+ * 
+ * We created a book class to ease managing the objects
+ * and make editing the stock easier. The book class holds
+ * attributes such as price, quantity, etc. */
 
 public class Book {
     private String title;

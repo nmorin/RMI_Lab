@@ -1,16 +1,25 @@
+/*
+ * Nicole Morin and Megan Maher
+ * Bowdoin Class of 2016
+ * Distributed Systems: RMI Lab
+ * 
+ * Created: February 17, 2015
+ * Last Modified: March 23, 2015
+ *
+ * The order server maintains a list of all orders made. 
+ * The class checks whether the item requested is in stock, and 
+ * if it is, decrements the quantity by 1 and returns a success
+ * message. If not in stock, it lets the user know. 
+ * It keeps track of the orders made, whether they were successful
+ * or not, and for what items. 
+ */
+
 import java.rmi.*;
 import java.util.ArrayList;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 
-
-/* The order server maintains a list of all orders made. 
-The class checks whether the item requested is in stock, and 
-if it is, decrements the quantity by 1 and returns a success
-message. If not in stock, it lets the user know. 
-It keeps track of the orders made, whether they were successful
-or not, and for what items. */
 public class Order implements OrderInterface {
 
     private static CatalogInterface catalogStub;

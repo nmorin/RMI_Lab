@@ -1,8 +1,21 @@
+/* 
+ * Nicole Morin and Megan Maher
+ * Bowdoin Class of 2016
+ * Distributed Systems: RMI Lab
+ * 
+ * Created: February 17, 2015
+ * Last Modified: March 6, 2015
+ *
+ * The Front End Server deals direclty with the client, and 
+ * depending on the request, will forward the request to the
+ * Catalog server or the Order server. It then will forward
+ * the response from one of these servers back to the client.
+ */
+
 import java.rmi.*;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-// import CatalogInterface;
 
 public class FrontEndServer implements FrontEndServerInterface {
 

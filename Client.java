@@ -1,32 +1,33 @@
+/* 
+ * Nicole Morin and Megan Maher
+ * Bowdoin Class of 2016
+ * Distributed Systems: RMI Lab
+ * 
+ * Created: February 17, 2015
+ * Last Modified: March 25, 2015
+ *
+ * Client class is so a user can access the front end server
+ * and make requests without knowing about the catalog or 
+ * order servers. In this, we locate and lookup the front end
+ * server registry and stub, which we use to call the remote functions
+ * that access the other servers. This class also parses and manages
+ * input from the user from the command line. 
+ */
+
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
 import java.io.*;
 
-// What assumptions do we make? 
-
-/* Client class is so a user can access the front end server
-and make requests without knowing about the catalog or 
-order servers. In this, we locate and lookup the front end
-server registry and stub, which we use to call the remote functions
-that access the other servers. This class also parses and manages
-input from the user from the command line. */
 public class Client {
-
-    // private static final String QUERY_TYPE = "INTENSIVE";
-    // private static final String QUERY_TYPE = "USER";
-    private static final String QUERY_TYPE = "CONCURRENT";
-
-    private static final String REQUEST_TYPE = "BUY";
-    // private static final String REQUEST_TYPE = "LOOKUP";
-
     private static final int NUM_QUERIES = 500;
 
     private static FrontEndServerInterface server;
     private static final int TEST_PRODUCT_NUMBER = 57471;
     private static long[] buyTimes;
     private static long[] lookTimes;
-    private static String inputType;
+    private static String requestType;
+    private static String queryType;
 
     private static String performLookUp(int number) {
         String answer = "";
@@ -61,48 +62,54 @@ public class Client {
         return answer;
     }
 
+    /* Used for the intensive query. Looks at all the times found
+     * and calculates the average time found in nanoseconds. */
     private static void printAvgTimes(int numQueries) {
-        long buySum = (long)0.0;
-        long lookSum = (long)0.0;
-
-        for (int i = 0; i < numQueries; i++) {
-            buySum += buyTimes[i];
-            lookSum += lookTimes[i];
+        if (requestType.equals("b")) {
+            long buySum = (long)0.0;
+            for (int i = 0; i < numQueries; i++) {
+                buySum += buyTimes[i];
+            }
+            long buyAvg = buySum / (long)numQueries;
+            System.out.println("BUY AVG TIME: "+buyAvg+" nanoseconds");
+        } else {
+            long lookSum = (long)0.0;
+            for (int i = 0; i < numQueries; i++) {
+                lookSum += lookTimes[i];
+            }
+            long lookAvg = lookSum / (long)numQueries;
+            System.out.println("LOOKUP AVG TIME: "+lookAvg+" nanoseconds");
         }
-
-        long buyAvg = buySum / (long)numQueries;
-        long lookAvg = lookSum / (long)numQueries;
-
-        System.out.println("BUY AVG TIME: "+buyAvg);
-        System.out.println("LOOKUP AVG TIME: "+lookAvg);
     }
 
     /* Used for testing, this method will perform the specified number of queries
     sequentially or simultaneously. */
     private static void intensiveQuery(int numQueries) {
-        long startTimeLook, startTimeBuy, endTimeLook, endTimeBuy;
+        long startTime, endTime;
         lookTimes = new long[numQueries];
         buyTimes = new long[numQueries];
-        
         System.out.println("Timing " + numQueries + " queries, beginning with lookUps");
         for (int i = 0; i < numQueries; i++) {
-            startTimeLook = System.nanoTime();
-            performLookUp(TEST_PRODUCT_NUMBER);
-            endTimeLook = System.nanoTime();
-
-            startTimeBuy = System.nanoTime();
-            performBuy(TEST_PRODUCT_NUMBER);
-            endTimeBuy = System.nanoTime();
-
-            lookTimes[i] = (endTimeLook - startTimeLook) / (long)1000000.0; //divide by 1000000 to get milliseconds
-            buyTimes[i] = (endTimeBuy - startTimeBuy) / (long)1000000.0; //divide by 1000000 to get milliseconds
+            if (requestType.equals("b")) {
+                startTime = System.nanoTime();
+                performBuy(TEST_PRODUCT_NUMBER);
+                endTime = System.nanoTime();
+                // System.out.println(endTime - startTime);
+                buyTimes[i] = (endTime - startTime);// / (long)1000000.0; //divide by 1000000 to get milliseconds
+            } else {
+                startTime = System.nanoTime();
+                performLookUp(TEST_PRODUCT_NUMBER);
+                endTime = System.nanoTime();
+                // System.out.println(endTime - startTime);
+                lookTimes[i] = (endTime - startTime);// / (long)1000000.0; //divide by 1000000 to get milliseconds
+            }
         }
         printAvgTimes(numQueries);
     }
 
     private static void concurrentQueries(int numQueries) {
         for (int i = 0; i < numQueries; i++) {
-            if (inputType.equals("b")) {
+            if (requestType.equals("b")) {
                 ConcurrentQuery qBuy = new ConcurrentQuery("buy");
                 qBuy.start();
             } else {
@@ -190,7 +197,8 @@ public class Client {
 
     public static void main(String args[]) {
         String host = (args.length < 1) ? "localhost" : args[0];
-        inputType = (args.length < 1) ? "c" : args[1];
+        queryType = (args.length < 2) ? "ui" : args[1];
+        requestType = (args.length < 3) ? "b" : args[2];
         try {
             String name = "FrontEndServerInterface";
             Registry registry = LocateRegistry.getRegistry(host, 8886);
@@ -202,17 +210,35 @@ public class Client {
             e.printStackTrace();
         }
 
-        if (QUERY_TYPE.equals("USER")) {
+        if (queryType.equals("ui")) {
+            System.out.println("User Input Queries: ");
             userInputQuery();
-        } else if (QUERY_TYPE.equals("INTENSIVE")) {
-            intensiveQuery(NUM_QUERIES);
         } else {
-            concurrentQueries(NUM_QUERIES);
+            if (requestType.equals("b")) {
+                System.out.print("Buy requests on ");
+            } else if (requestType.equals("l")) {
+                System.out.print("Lookup requests on ");
+            } else {
+                System.out.println("Invalid request type. Defaulting to buy on ");
+                requestType = "b";
+            }
+            
+            if (queryType.equals("iq")) {
+                System.out.println("Intensive Queries: ");
+                intensiveQuery(NUM_QUERIES);
+            } else if (queryType.equals("cq")) {
+                System.out.println("Concurrent Queries: ");
+                concurrentQueries(NUM_QUERIES);
+            } else {
+                System.out.println("INVALID QUERY TYPE. Defaulting to intensive queries.");
+                intensiveQuery(NUM_QUERIES);
+            }
         }
         
     } 
 
-
+    /* Class used to run multiple concurrent threads, when calculating
+     * the time it takes for each request. */
     private static class ConcurrentQuery extends Thread {
         private Thread t;
         private String requestType;
