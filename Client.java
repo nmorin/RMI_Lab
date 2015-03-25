@@ -1,6 +1,7 @@
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
+import java.io.*;
 
 // What assumptions do we make? 
 
@@ -15,10 +16,17 @@ public class Client {
     // private static final String QUERY_TYPE = "INTENSIVE";
     // private static final String QUERY_TYPE = "USER";
     private static final String QUERY_TYPE = "CONCURRENT";
+
+    private static final String REQUEST_TYPE = "BUY";
+    // private static final String REQUEST_TYPE = "LOOKUP";
+
+    private static final int NUM_QUERIES = 500;
+
     private static FrontEndServerInterface server;
     private static final int TEST_PRODUCT_NUMBER = 57471;
     private static long[] buyTimes;
     private static long[] lookTimes;
+    private static String inputType;
 
     private static String performLookUp(int number) {
         String answer = "";
@@ -93,19 +101,15 @@ public class Client {
     }
 
     private static void concurrentQueries(int numQueries) {
-        lookTimes = new long[numQueries];
-        buyTimes = new long[numQueries];
-
         for (int i = 0; i < numQueries; i++) {
-            ConcurrentQuery qBuy = new ConcurrentQuery("buy");
-            ConcurrentQuery qLook = new ConcurrentQuery("lookup");
-            qBuy.start();
-            qLook.start();
-            buyTimes[i] = qBuy.getTime();
-            lookTimes[i] = qLook.getTime();
+            if (inputType.equals("b")) {
+                ConcurrentQuery qBuy = new ConcurrentQuery("buy");
+                qBuy.start();
+            } else {
+                ConcurrentQuery qLook = new ConcurrentQuery("lookup");
+                qLook.start();
+            }
         }
-
-        printAvgTimes(numQueries);
     }
 
     private static void userInputQuery() {
@@ -186,6 +190,7 @@ public class Client {
 
     public static void main(String args[]) {
         String host = (args.length < 1) ? "localhost" : args[0];
+        inputType = (args.length < 1) ? "c" : args[1];
         try {
             String name = "FrontEndServerInterface";
             Registry registry = LocateRegistry.getRegistry(host, 8886);
@@ -200,9 +205,9 @@ public class Client {
         if (QUERY_TYPE.equals("USER")) {
             userInputQuery();
         } else if (QUERY_TYPE.equals("INTENSIVE")) {
-            intensiveQuery(500);
+            intensiveQuery(NUM_QUERIES);
         } else {
-            concurrentQueries(500);
+            concurrentQueries(NUM_QUERIES);
         }
         
     } 
@@ -211,11 +216,10 @@ public class Client {
     private static class ConcurrentQuery extends Thread {
         private Thread t;
         private String requestType;
-        private long time;
         private static final int TEST_PRODUCT_NUMBER = 57471;
        
         ConcurrentQuery(String requestType_) {
-           requestType = requestType_;
+            requestType = requestType_;
         }
 
         public void run() {
@@ -233,7 +237,8 @@ public class Client {
             } catch (Exception e) {
                 System.out.println("Thread interrupted.");
             }
-            time = endTime - startTime;
+            long time = endTime - startTime;
+            System.out.println(time);
         }
        
         public void start()
@@ -243,14 +248,6 @@ public class Client {
                 t.start(); 
             }
         }
-
-        public long getTime() {
-            return time;
-        }
-   }
-
-
-
-
+    }
 }
 
