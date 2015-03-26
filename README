@@ -1,12 +1,184 @@
-NILE PROJECT README
+NILE.COM README
+
+	Megan Maher and Nikki Morin
+	Bowdoin College, Class of 2016
+	Distributed Systems: RMI Lab
+
+	Created: Feb 17, 2015
+	Last Modified: Mar 25, 2015 
+
+
+This file contains information about how to compile the program (Section A), 
+then how to run the program for regular access to Nile.com (Section B).
+Regular access will prompt for user-inputted queries to Nile.com, which must
+match a certain format, which is described next (Section C). Lastly, 
+this file contains information about how to run tests on the code to find 
+the time it takes to process buy or lookup requests (Section D).
+
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+                       
+                         A. COMPILING THE PROGRAM
+
 
 To compile, type "make". It will put all .class files in the bin folder.
+When running the program, make sure you are running from the bin folder.
 
-To run, use four terminal windows and start programs in this order:
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
 
-	1. java Catalog
-	2. java Order
+                          B. RUNNING THE PROGRAM
+
+
+Run the following programs in different terminal windows or on different 
+machines, in the following manner:
+
+	1. Catalog Server
+
+			java Catalog
+
+	2. Order Server
+
+			java Order [catalogHost]
+
+		If you are not running this server on the same machine as the
+		Catalog server, you will need to provide the host of the 
+		Catalog server. For example:
+
+			java Order 12.345.67.890
+
+		If no host is specified, the default is "localhost".
+
 	3. java FrontEndServer
+
+			java FrontEndServer [catalogHost] [orderHost]
+
+		If you are not running this server on the same machine as the Order
+		and Catalog servers, you need to specify the host of both the 
+		Order and Catalog servers. If no hosts are specified, the default 
+		is "localhost" for both. Ex:
+
+			java FrontEndServer 12.345.67.890 24.6.813.579
+
 	4. java Client
 
-Type in requests to the Client window, following the format specified.
+			java Client [fronEndServerHost]
+
+		If this server is not run on the same machine as the Front-End 
+		server, a host must be specified. If no host is specified, the 
+		default is "localhost". Ex:
+
+			java Client 987.65.43.210
+
+		(See Section D for other ways of running the Client server.)
+
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+
+                      C. USER INPUT QUERY FORMAT
+
+
+Once the program is running, requests must be entered into the machine
+running the Client program in a certain format. There are a number of
+possible requests:
+
+	1. Search for a topic
+		Returns all entries that match the topic specified, the form 
+		of a book title and the book item number. 
+
+		search [topic]
+
+	2. Book Lookup
+		Searches for specified book item number and returns the title, 
+		the number of books in stock, and the cost of the book.
+
+		lookup [itemNo]
+
+	3. Buy
+		Places an order for the book that matches the specified item 
+		number.
+
+		buy [itemNo]
+
+List of available topics for catalog:
+	- 'distributed systems'
+	- 'college life'
+
+Item Numbers available: 
+	- 57471
+	- 58574
+	- 12395
+	- 13298
+
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+
+            D. RUNNIING THE PROGRAM FOR TIMED REQUEST TESTS
+
+The code is built to run timed buy queries and lookup queries, 500 times.
+The user can specify the query type and whether the queries should be 
+independent and intensive queries or concurrent queries. 
+
+INPUT:
+	java Client [orderHost] [queryType] [requestType]
+
+
+	1. orderHost
+
+		The same as described in Section B, this should be the host of the
+		Order server. It must be specified in this case and will not default
+		to "localhost" if you pass in other parameters. However, "localhost" is
+		still a valid option.
+
+	2. queryType
+
+		- "ui" for user-input queries as regularly done in Section B
+
+		- "iq" for independent queries
+
+			The independent query option will make 500 separate requests to
+			the server.
+
+		- "cq" for concurrent queries
+
+			The concurrent query option will make 500 concurrent requests through
+			500 sepearte threads to the server.
+
+	3. requestType
+
+		- "b" for buy requests
+
+			The request type will be 'buy'.
+
+		- "l" for lookup requests
+
+			The request type will be 'lookup'.
+
+		- Default is buy request if no type is given
+
+
+OUTPUT:
+	Intensive Queries:
+		All intensive queries compute the total time it takes for 500 individual
+		requests, of type buy or lookup according to user input, and then 
+		computes the average time. This average time is outputted to the terminal:
+
+		Ex: 
+			$ java Client localhost iq b
+			Bound the frontendserver!
+			Buy requests on Intensive Queries: 
+			Timing 500 queries, beginning with lookUps
+			BUY AVG TIME: 1838582 nanoseconds
+
+	Concurrent Queries:
+		Concurrent queries also compute the total time it takes to execute one
+		request (of type user-input), and then each separate query will print to
+		the terminal the time it took for that request.
+
+		Ex:
+			$ java Client localhost cq b
+			Bound the frontendserver!
+			Buy requests on Concurrent Queries: 
+			19091000
+			20003000
+			... etc.
