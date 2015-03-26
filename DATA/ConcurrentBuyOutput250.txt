@@ -1,0 +1,502 @@
+Bound the frontendserver!
+Buy requests on Concurrent Queries: 
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+Timing 500 queries, beginning with lookUps
+135712845
+137943301
+144043992
+142604265
+142028596
+139343596
+138211286
+137022956
+134323248
+132500645
+132391506
+129948168
+130001348
+129997112
+138430718
+142420829
+132069724
+133272257
+131842727
+131616045
+139723219
+137281664
+139638924
+137356154
+137728117
+137867980
+136933008
+136275269
+135067924
+135013435
+134844238
+133039614
+134312203
+133823691
+132953332
+132031811
+131377313
+130887181
+139025566
+141195019
+139982022
+136406368
+136304573
+134522440
+133836367
+134106522
+134573877
+135828860
+134274902
+134572579
+132804093
+132402347
+133047875
+133594877
+132673108
+133905536
+136362810
+137140824
+136858810
+136406923
+134069810
+134026188
+133128242
+133504988
+133125774
+133516214
+133530354
+132553470
+131843179
+132278088
+135642409
+134519411
+134654760
+133215507
+133766080
+133157238
+132355020
+132226254
+131788427
+131726335
+131753220
+131734225
+132701657
+133985328
+133912313
+133929399
+134159270
+138517942
+135760133
+134776918
+133288502
+133825447
+133987182
+133546134
+134130646
+134132444
+134325763
+134329984
+132419499
+132366126
+132385775
+132570503
+132114936
+130639036
+131128357
+130820497
+130497957
+130500756
+130773090
+130934780
+130643483
+130661000
+130871828
+131117873
+131370033
+131612396
+131537438
+131389851
+131302132
+130602885
+130535054
+130500580
+130460744
+130824023
+130806783
+130891331
+130977679
+130396850
+130409918
+130420311
+129668635
+129692776
+129772911
+129762321
+129934594
+129906899
+129936589
+129287674
+129722637
+129803585
+129218955
+129189636
+129594109
+129641462
+129112324
+129067571
+129033904
+129275203
+129306881
+129324554
+129366796
+128988192
+128683273
+129261468
+129184246
+129202880
+129071924
+129111492
+129147229
+129128692
+128904180
+128880224
+128147004
+128239713
+128287835
+128404811
+128620582
+128710434
+128354308
+128247434
+127706843
+127787869
+127954728
+127996311
+128319755
+129389976
+128706539
+128638787
+128268262
+128347719
+128393510
+128461958
+128141968
+128234477
+127536133
+127424118
+127476031
+127397294
+127101332
+127531798
+127545663
+127423793
+127197815
+126894404
+127247622
+127237637
+127318627
+127247517
+127353920
+127405694
+127295659
+127315002
+127428699
+127533843
+127591750
+127499105
+127384860
+127274002
+127030391
+126975293
+126900894
+126613307
+127020311
+127030017
+127030221
+127077010
+126518952
+126680137
+126221012
+125861804
+125629269
+125537170
+125544832
+125419608
+125328238
+126225527
+125112639
+125110502
+124597964
+124612023
+124609018
+124614463
+124549011
+124943970
+125047479
+124951664
+124858399
+124873638
+124806083
+124809553
+124803688
+124781432
+124813690
+124811614
+124629457
+124555117
+124360070
+124374475
+124367558
+124355305
