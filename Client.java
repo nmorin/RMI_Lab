@@ -21,6 +21,7 @@ import java.io.*;
 
 public class Client {
     private static final int NUM_QUERIES = 500;
+    private static final int NUM_CLIENTS = 1;
 
     private static FrontEndServerInterface server;
     private static final int TEST_PRODUCT_NUMBER = 57471;
@@ -71,14 +72,14 @@ public class Client {
                 buySum += buyTimes[i];
             }
             long buyAvg = buySum / (long)numQueries;
-            System.out.println("BUY AVG TIME: "+buyAvg+" nanoseconds");
+            System.out.println(buyAvg);
         } else {
             long lookSum = (long)0.0;
             for (int i = 0; i < numQueries; i++) {
                 lookSum += lookTimes[i];
             }
             long lookAvg = lookSum / (long)numQueries;
-            System.out.println("LOOKUP AVG TIME: "+lookAvg+" nanoseconds");
+            System.out.println(lookAvg);
         }
     }
 
@@ -107,8 +108,8 @@ public class Client {
         printAvgTimes(numQueries);
     }
 
-    private static void concurrentQueries(int numQueries) {
-        for (int i = 0; i < numQueries; i++) {
+    private static void concurrentQueries(int numClients) {
+        for (int i = 0; i < numClients; i++) {
             if (requestType.equals("b")) {
                 ConcurrentQuery qBuy = new ConcurrentQuery("buy");
                 qBuy.start();
@@ -228,7 +229,7 @@ public class Client {
                 intensiveQuery(NUM_QUERIES);
             } else if (queryType.equals("cq")) {
                 System.out.println("Concurrent Queries: ");
-                concurrentQueries(NUM_QUERIES);
+                concurrentQueries(NUM_CLIENTS);
             } else {
                 System.out.println("INVALID QUERY TYPE. Defaulting to intensive queries.");
                 intensiveQuery(NUM_QUERIES);
@@ -242,29 +243,33 @@ public class Client {
     private static class ConcurrentQuery extends Thread {
         private Thread t;
         private String requestType;
-        private static final int TEST_PRODUCT_NUMBER = 57471;
+        // private static final int TEST_PRODUCT_NUMBER = 57471;
        
         ConcurrentQuery(String requestType_) {
             requestType = requestType_;
         }
 
         public void run() {
-            long startTime = (long)0.0, endTime = (long)0.0;
+            // long startTime = (long)0.0, endTime = (long)0.0;
             try {
-                if (requestType.equals("buy")) {
-                    startTime = System.nanoTime();
-                    performBuy(TEST_PRODUCT_NUMBER);
-                    endTime = System.nanoTime();
-                } else {
-                    startTime = System.nanoTime();
-                    performLookUp(TEST_PRODUCT_NUMBER);
-                    endTime = System.nanoTime();
-                }
+                intensiveQuery(NUM_QUERIES);
+
+                // if (requestType.equals("buy")) {
+                //     intensiveQuery(NUM_QUERIES);
+                //     // startTime = System.nanoTime();
+                //     // performBuy(TEST_PRODUCT_NUMBER);
+                //     // endTime = System.nanoTime();
+                // } else {
+
+                //     startTime = System.nanoTime();
+                //     performLookUp(TEST_PRODUCT_NUMBER);
+                //     endTime = System.nanoTime();
+                // }
             } catch (Exception e) {
                 System.out.println("Thread interrupted.");
             }
-            long time = endTime - startTime;
-            System.out.println(time);
+            // long time = endTime - startTime;
+            // System.out.println(time);
         }
        
         public void start()
